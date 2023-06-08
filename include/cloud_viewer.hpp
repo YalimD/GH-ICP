@@ -231,6 +231,8 @@ class CloudViewer
 
         viewer->spinOnce(display_time_ms);
         boost::this_thread::sleep(boost::posix_time::microseconds(1000));
+
+        return true;
     }
 
   private:

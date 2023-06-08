@@ -786,6 +786,8 @@ bool GHRegistration::adjustweight()
 		;
 	}
 	cout << "IoU: " << IoU << " ,Penalty_ED: " << EF.para1_penalty << " ,Penalty_FD: " << EF.para2_penalty << endl;
+
+	return true;
 }
 
 bool GHRegistration::transformestimation(Eigen::Matrix4d &Rt)

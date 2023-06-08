@@ -55,6 +55,12 @@ bool match_corres_type(char corres_estimation, CorrespondenceType &Ct)
 
 int main(int argc, char **argv)
 {
+	if (argc != 14)
+	{
+		std::cerr << "Wrong number of parameters: " << argc << ". Check the example .sh file.";
+		return 1;
+	}
+
 	//Import configuration
 	//Data path (4 formats are available: *.pcd, *.las, *.ply, *.txt)
 	std::string filenameT = argv[1];                //Target pointcloud file path
@@ -153,8 +159,8 @@ int main(int argc, char **argv)
 	pcl::transformPointCloud(*pointCloudS, *pointCloudS_reg, Rt_final.template cast<float>());
 	dataio.writeCloudFile(filenameR, pointCloudS_reg); //Write out the transformed Source Point Cloud
     
-    CloudViewer<Point_T> viewer;
-	viewer.Dispaly2Cloud(pointCloudS_reg,pointCloudT,"Registration Result",5); //Show the registration result
+ //   CloudViewer<Point_T> viewer;
+	//viewer.Dispaly2Cloud(pointCloudS_reg,pointCloudT,"Registration Result",5); //Show the registration result
 
 	return 0;
 }

@@ -16,7 +16,7 @@
 #include <pcl/registration/ia_ransac.h>
 
 
-#include <glog/logging.h>
+// #include <glog/logging.h>
 
 #include <cmath>
 
@@ -65,7 +65,8 @@ bool CRegistration<PointT>::icp_reg(const typename pcl::PointCloud<PointT>::Ptr 
 		pcl::registration::CorrespondenceRejectorTrimmed::Ptr trimmed_cr(new pcl::registration::CorrespondenceRejectorTrimmed);
 		float overlap_ratio = calOverlap(SourceCloud, TargetCloud, thre_dis);
 		if (overlap_ratio < min_overlap_for_reg) {
-			LOG(WARNING) << "The overlap ratio is too small. This registration would not be done.";
+			std::cout << "The overlap ratio is too small. This registration would not be done.";
+
 			return false;
 		}
 		else{
@@ -92,12 +93,15 @@ bool CRegistration<PointT>::icp_reg(const typename pcl::PointCloud<PointT>::Ptr 
 	
 	t1=clock();
 
-	// Commented these out if you don't want to output the registration log
-	LOG(INFO) << "Point-to-Point ICP done in  " << float(t1 - t0) / CLOCKS_PER_SEC << "s";
-	LOG(INFO) << transformationS2T;
-	LOG(INFO) << "The fitness score of this registration is " << icp.getFitnessScore();
-	if (icp.getFitnessScore() > 5000) LOG(WARNING) << "The fitness score of this registration is a bit too large";
-	LOG(INFO) << "-----------------------------------------------------------------------------";
+	//// Commented these out if you don't want to output the registration log
+	std::cout << "Point-to-Point ICP done in  " << float(t1 - t0) / CLOCKS_PER_SEC << "s";
+	std::cout << transformationS2T;
+	std::cout << "The fitness score of this registration is " << icp.getFitnessScore();
+	if (icp.getFitnessScore() > 5000)
+	{
+		std::cout << "The fitness score of this registration is a bit too large";
+	}
+	std::cout << "-----------------------------------------------------------------------------";
 
 	//
 	cout << "Point-to-Point ICP done in " << float(t1 - t0) / CLOCKS_PER_SEC << " s" << endl << transformationS2T << endl;
@@ -162,7 +166,7 @@ bool CRegistration<PointT>::ptplicp_reg(const typename pcl::PointCloud<PointT>::
 		pcl::registration::CorrespondenceRejectorTrimmed::Ptr trimmed_cr(new pcl::registration::CorrespondenceRejectorTrimmed);
 		float overlap_ratio = calOverlap(SourceCloud, TargetCloud, thre_dis);
 		if (overlap_ratio < min_overlap_for_reg) {
-			LOG(WARNING) << "The overlap ratio is too small. This registration would not be done.";
+			std::cout << "The overlap ratio is too small. This registration would not be done.";
 			return false;
 		}
 		else{
@@ -186,11 +190,14 @@ bool CRegistration<PointT>::ptplicp_reg(const typename pcl::PointCloud<PointT>::
 	t1=clock();
 
 	// Commented these out if you don't want to output the registration log
-	LOG(INFO) << "Point-to-Plane ICP done in  " << float(t1 - t0) / CLOCKS_PER_SEC << "s";
-	// LOG(INFO) << "Transform Matrix" << endl << transformationS2T;
-	LOG(INFO) << "The fitness score of this registration is " << ptplicp.getFitnessScore();
-	if (ptplicp.getFitnessScore() > 5000) LOG(WARNING) << "The fitness score of this registration is a bit too large";
-	// LOG(INFO) << "-----------------------------------------------------------------------------";
+	std::cout << "Point-to-Plane ICP done in  " << float(t1 - t0) / CLOCKS_PER_SEC << "s";
+	 std::cout << "Transform Matrix" << endl << transformationS2T;
+	std::cout << "The fitness score of this registration is " << ptplicp.getFitnessScore();
+	if (ptplicp.getFitnessScore() > 5000)\
+	{
+		std::cout << "The fitness score of this registration is a bit too large";
+	}
+	std::cout << "-----------------------------------------------------------------------------";
 
 	// Commented these out if you don't want to output the registration log
 	cout << "Point-to-Plane ICP done in " << float(t1 - t0) / CLOCKS_PER_SEC << " s" << endl << transformationS2T << endl; //This one is with perturbation;
@@ -270,12 +277,15 @@ bool CRegistration<PointT>::gicp_reg(const typename pcl::PointCloud<PointT>::Ptr
 
 	t1=clock();
 
-	// Commented these out if you don't want to output the registration log
-	LOG(INFO) << "GICP done in  " << float(t1 - t0) / CLOCKS_PER_SEC << "s";
-	LOG(INFO) << transformationS2T;
-	LOG(INFO) << "The fitness score of this registration is " << gicp.getFitnessScore();
-	if (gicp.getFitnessScore() > 5000) LOG(WARNING) << "The fitness score of this registration is a bit too large";
-	LOG(INFO) << "-----------------------------------------------------------------------------";
+	//// Commented these out if you don't want to output the registration log
+	std::cout << "GICP done in  " << float(t1 - t0) / CLOCKS_PER_SEC << "s";
+	std::cout << transformationS2T;
+	std::cout << "The fitness score of this registration is " << gicp.getFitnessScore();
+	if (gicp.getFitnessScore() > 5000) 
+	{
+		std::cout << "The fitness score of this registration is a bit too large";
+	}
+	std::cout << "-----------------------------------------------------------------------------";
 
 	// Commented these out if you don't want to output the registration log
 	cout << "GICP done in " << float(t1 - t0) / CLOCKS_PER_SEC << " s" << endl << transformationS2T << endl;
@@ -310,8 +320,8 @@ float CRegistration<PointT>::calOverlap(const typename pcl::PointCloud<PointT>::
 	}
 	
 	overlap_ratio = (0.01 + overlap_point_num) / Cloud1->size();
-	//cout << "The estimated approximate overlap ratio of Cloud 1 is " << overlap_ratio << endl;
-	LOG(INFO) << "The estimated approximate overlap ratio of Cloud 1 is " << overlap_ratio;
+	std::cout << "The estimated approximate overlap ratio of Cloud 1 is " << overlap_ratio << std::endl;
+	std::cout << "The estimated approximate overlap ratio of Cloud 1 is " << overlap_ratio;
 
 	return overlap_ratio;
 }
