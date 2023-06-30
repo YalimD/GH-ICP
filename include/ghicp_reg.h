@@ -33,10 +33,11 @@ struct Energyfunction
 		para1_penalty = 1.0;   //for ED penalty estimation
 		para2_penalty = 1.0;   //for FD penalty estimation
 
-		min_cor = 10;			  //min keypoint pairs for registration
-		weight_changing_rate = 6; //ED,FD weight changing parameter
-		KM_eps = 0.01;			  //KM's parameter (Smaller eps, longer consuming time)
+		min_cor = 10;			  //min keypoint pairs for registration. Acts as a threshold so it is ok
+		weight_changing_rate = 8; //ED,FD weight changing parameter. 8 comes from the paper
+		KM_eps = 0.01;			  //KM's parameter (Smaller eps, longer consuming time). Related to KM
 
+		//This is too big for the damn bunny
 		scale = 0.005 * bbx_magnitude;
 	}
 };

@@ -283,7 +283,10 @@ bool GHRegistration::calCD_BSC()
 	}
 	else
 	{
-		EF.penalty = (CDmean - EF.penalty_initial * CDstd);
+		//EF.penalty = (CDmean - EF.penalty_initial * CDstd);
+
+		//TODO: From the paper
+		EF.penalty = (CDmean + EF.penalty_initial * CDstd);
 	}
 	EF.penalty = max(EF.penalty, 5.0);
 
@@ -353,7 +356,8 @@ bool GHRegistration::findcorrespondenceKM()
 	{
 		for (size_t j = 0; j < size; ++j)
 		{
-			graphweight[i][j] = -EF.penalty;
+			//graphweight[i][j] = -EF.penalty;
+			graphweight[i][j] = EF.penalty;
 		}
 	}
 	for (size_t i = 0; i < KP.kps_num; ++i)
@@ -361,7 +365,10 @@ bool GHRegistration::findcorrespondenceKM()
 		for (size_t j = 0; j < KP.kpt_num; ++j)
 		{
 			if (EF.CD[i][j] < EF.penalty)
-				graphweight[i][j] = -EF.CD[i][j];
+			{
+				//graphweight[i][j] = -EF.CD[i][j];
+				graphweight[i][j] = EF.CD[i][j];
+			}
 		}
 	}
 	//cout << "Weight OK" << endl;

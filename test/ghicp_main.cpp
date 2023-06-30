@@ -96,11 +96,14 @@ int main(int argc, char **argv)
 	cfilter.voxelfilter(pointCloudS, pointCloudS_down, resolution);
 	Bounds s_cloud_bbx;
 	cfilter.getCloudBound(*pointCloudS_down, s_cloud_bbx);
+
+	// TODO: Why are we summing these again?
 	float bbx_magnitude = s_cloud_bbx.max_x - s_cloud_bbx.min_x + s_cloud_bbx.max_y - s_cloud_bbx.min_y + s_cloud_bbx.max_z - s_cloud_bbx.min_z;
 
 	//Extract keypoints
-	float non_stable_ratio_threshold= 0.65;
-	CKeypointDetect<Point_T> ckpd(neighborhood_radius, non_stable_ratio_threshold, 20, curvature_non_max_radius);
+	float non_stable_ratio_threshold= 0.85;
+	int min_num_neighbours = 20;
+	CKeypointDetect<Point_T> ckpd(neighborhood_radius, non_stable_ratio_threshold, min_num_neighbours, curvature_non_max_radius);
 	pcl::PointIndicesPtr keyPointIndicesT, keyPointIndicesS;
 	ckpd.keypointDetectionBasedOnCurvature(pointCloudT_down, keyPointIndicesT);
 	ckpd.keypointDetectionBasedOnCurvature(pointCloudS_down, keyPointIndicesS);
